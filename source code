@@ -1,0 +1,224 @@
+
+#include<bits/stdc++.h>
+
+using namespace std;
+
+// 1. create genesis node which has parent node as null
+
+struct node 
+{
+  int data;
+  struct node *left;
+  struct node *right;
+};
+
+
+class btree
+{
+    public:
+        btree();
+        ~btree();
+
+        void insert(int key);
+        node *search(int key);
+        void destroy_tree();
+
+    private:
+        void destroy_tree(node *leaf);
+        void insert(int key, node *leaf);
+        node *search(int key, node *leaf);
+        
+        node *root;
+};
+
+
+btree::btree()
+{
+  root=NULL;
+}
+ // end of part 1
+ 
+ 
+ // 2. function to create set of child nodes of particular nodes
+
+struct node* newNode(int data)
+{
+
+struct node* node = (struct node*)malloc(sizeof(struct node));
+
+
+node->data = data;
+
+
+node->left = NULL;
+node->right = NULL;
+return(node);
+}
+// end of second part
+
+
+
+// 6. function to edit value of a node.
+
+
+
+void BinaryTree<T>::UpdateKey(T newkey,T oldkey)
+{
+     TreeNode<T> *temp,*temp1,*temp2,*temp3;
+     temp=Root;
+   
+     while (temp!=NULL)
+     {
+         if (temp->key==newkey)
+         {
+            cout<<"New key already exists in the tree.CannotUpdate!";                  
+            cout<<endl;                 
+            return;
+         }
+         if (newkey>temp->key)
+         {
+            temp=temp->RightChild;
+         }
+         else if (newkey<temp->key)
+         {
+            temp=temp->LeftChild;
+         }
+     }
+
+     temp=Root;                                  
+     while (temp!=NULL)
+     {      
+         if (temp->key==oldkey)
+         {
+             temp1=temp->Parent;
+             temp->key=newkey;
+             if (temp1->LeftChild==temp)  
+             {
+                 if (temp1->key<temp->key)
+                 {
+                     temp=temp->RightChild;                     
+                     while (temp->LeftChild!=NULL)
+                     {
+                         temp=temp->LeftChild;
+                     }
+                     temp2=temp;
+                     temp3=temp1->LeftChild;
+                     temp->key=temp3->key;
+                     temp->value=temp3->value;
+                     temp3->key=temp2->key;
+                     temp3->value=temp2->value;
+                 }
+                 cout<<"Value updated successfully1"<<endl;
+                 return;
+             }
+                    else if (temp1->RightChild==temp)
+             {
+                   
+                  if (temp1->key>temp->key)
+                  {
+                                temp=temp->LeftChild;
+                      while (temp->RightChild!=NULL)
+                      {
+                          temp=temp->RightChild;
+                      }
+                     
+                      temp2=temp;
+                      temp3=temp1->RightChild;
+                  temp->key=temp3->key;
+                   temp->value=temp3->value;
+                      temp3->key=temp2->key;
+                      temp3->value=temp2->value;                  
+                  }     
+                  cout<<"Value updated successfully2<<endl;
+				      return;     
+             }                  
+             
+    if (temp->LeftChild!=NULL && newkey<(temp->LeftChild)->key)
+         {
+
+             temp->key=newkey;                 
+             temp1=temp;     
+	         temp=temp->LeftChild;
+               while (temp->RightChild!=NULL)
+               {                     temp=temp->RightChild;
+                 }           
+                 temp2=temp1;                            
+               temp1->key=temp->key;
+                temp1->value=temp->value;
+                 temp->key=temp2->key;
+                 temp->value=temp2->value;
+
+                 cout<<"Value updated successfully3"<<endl;
+                 return;
+             }
+            
+             else if (temp->RightChild!=NULL && newkey>(temp->RightChild)->key)
+             {
+                 temp->key=newkey;
+                 temp1=temp;
+                 while (temp->LeftChild!=NULL)
+                 {
+                     temp=temp->LeftChild;
+                 }
+                 temp2=temp1;                            
+                 temp1->key=temp->key;
+                 temp1->value=temp->value;
+                 temp->key=temp2->key;
+                 temp->value=temp2->value; 
+
+                cout<<"Value updated successfully4"<<endl;
+                return;
+             }
+
+         }
+        
+         if (oldkey<temp->key)
+             temp=temp->LeftChild;
+         else if (oldkey>temp->key)
+            temp=temp->RightChild;    
+     }
+}
+
+
+// end 
+
+
+
+
+// 9. function to find the longest chain of any node
+
+struct node
+{
+	int data;
+	node *left;
+	node *right;
+};
+int finDepth(node *root)
+{
+	if(root == NULL) return -1;
+	else
+	{
+		int ldepth = finDepth(root->left);
+		int rdepth = finDepth(root->right);
+
+		if(ldepth < rdepth) return rdepth + 1;
+		else return ldepth + 1;
+	}
+}
+
+
+
+
+// 10. function to merge 2 nodes.
+public class Solution {
+    public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+        if (t1 == null)
+            return t2;
+        if (t2 == null)
+            return t1;
+        t1.val += t2.val;
+        t1.left = mergeTrees(t1.left, t2.left);
+        t1.right = mergeTrees(t1.right, t2.right);
+        return t1;
+    }
+}
